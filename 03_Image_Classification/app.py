@@ -136,9 +136,7 @@ with gr.Blocks(
         with gr.Column(scale=1, elem_classes="result-panel"):
             gr.Markdown("### Predictions\nThe five highest-scoring breeds will appear here.")
             result = gr.Label(num_top_classes=5, label="Breed probabilities")
-
-    with gr.Accordion("37 supported breeds", open=False):
-        gr.Markdown("  ·  ".join(BREED_NAMES))
+            gr.Markdown("### 37 trained breeds\n" + "  ·  ".join(BREED_NAMES))
 
     model_selector.change(model_details, inputs=model_selector, outputs=details)
     classify.click(predict, inputs=[image, model_selector], outputs=result)
