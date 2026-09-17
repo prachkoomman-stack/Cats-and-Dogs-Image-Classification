@@ -16,6 +16,46 @@ MODEL_OPTIONS = {
     "From scratch, no augmentation": "Oxford_pets_scratch_noaugment.pth",
 }
 
+BREED_NAMES = [
+    "Abyssinian",
+    "Bengal",
+    "Birman",
+    "Bombay",
+    "British Shorthair",
+    "Egyptian Mau",
+    "Maine Coon",
+    "Persian",
+    "Ragdoll",
+    "Russian Blue",
+    "Siamese",
+    "Sphynx",
+    "American Bulldog",
+    "American Pit Bull Terrier",
+    "Basset Hound",
+    "Beagle",
+    "Boxer",
+    "Chihuahua",
+    "English Cocker Spaniel",
+    "English Setter",
+    "German Shorthaired",
+    "Great Pyrenees",
+    "Havanese",
+    "Japanese Chin",
+    "Keeshond",
+    "Leonberger",
+    "Miniature Pinscher",
+    "Newfoundland",
+    "Pomeranian",
+    "Pug",
+    "Saint Bernard",
+    "Samoyed",
+    "Scottish Terrier",
+    "Shiba Inu",
+    "Staffordshire Bull Terrier",
+    "Wheaten Terrier",
+    "Yorkshire Terrier",
+]
+
 
 def _build_model(checkpoint):
     model = models.resnet18(weights=None)
@@ -96,6 +136,9 @@ with gr.Blocks(
         with gr.Column(scale=1, elem_classes="result-panel"):
             gr.Markdown("### Predictions\nThe five highest-scoring breeds will appear here.")
             result = gr.Label(num_top_classes=5, label="Breed probabilities")
+
+    with gr.Accordion("37 supported breeds", open=False):
+        gr.Markdown("  ·  ".join(BREED_NAMES))
 
     model_selector.change(model_details, inputs=model_selector, outputs=details)
     classify.click(predict, inputs=[image, model_selector], outputs=result)
